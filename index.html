@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Tradepass — Africa's Trade Intelligence Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,700;0,900;1,300;1,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0A0E14;--ink2:#141B25;--ink3:#1E2A38;
+  --cream:#F5F0E8;--cream2:#EDE8DC;--cream3:#E4DDD0;
+  --gold:#C8982A;--gold2:#E8B84B;--gold3:#F5D080;--gold-pale:#FBF5E6;
+  --slate:#5C6B7A;--slate2:#8A9BAC;--border:#D4CCB8;--border2:#C2B89A;
+  --green:#1A7A3C;--green-pale:#E8F5EE;
+  --red:#C0392B;--red-pale:#FDECEA;
+  --amber:#B5600A;--amber-pale:#FEF3E2;
+  --blue:#1A5FAD;--blue-pale:#E8F0FB;
+  --r:10px;--r-sm:6px;--r-lg:16px;
+  --sh:0 2px 8px rgba(10,14,20,.08),0 1px 2px rgba(10,14,20,.04);
+  --sh-lg:0 8px 32px rgba(10,14,20,.14),0 2px 8px rgba(10,14,20,.06);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Instrument Sans',sans-serif;font-size:15px;line-height:1.6;color:var(--ink);background:var(--cream);overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Fraunces',serif;line-height:1.15;letter-spacing:-.5px}
+a{color:var(--blue);text-decoration:none}
+
+/* scrollbar */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--cream2)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+/* ── NAV ─────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:60px;
+  background:rgba(245,240,232,.92);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:24px}
+.nav-logo{font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:10px;letter-spacing:-.8px}
+.nav-mark{width:30px;height:30px;background:var(--ink);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-mark svg{width:16px;height:16px;fill:var(--gold2)}
+.nav-links{display:flex;gap:2px;margin-left:auto}
+.nav-btn{padding:6px 13px;border-radius:var(--r-sm);font-size:13.5px;font-weight:500;color:var(--slate);cursor:pointer;transition:all .15s;border:none;background:none;font-family:'Instrument Sans',sans-serif;white-space:nowrap}
+.nav-btn:hover{color:var(--ink);background:var(--cream2)}
+.nav-btn.act{color:var(--ink);background:var(--cream3);font-weight:600}
+.nav-cta{padding:8px 18px;background:var(--ink);color:var(--cream);border-radius:var(--r-sm);font-size:13.5px;font-weight:600;cursor:pointer;border:none;font-family:'Instrument Sans',sans-serif;transition:all .2s;margin-left:8px}
+.nav-cta:hover{background:var(--ink2);transform:translateY(-1px);box-shadow:var(--sh)}
+.phase-pip{display:inline-block;width:7px;height:7px;border-radius:50%;margin-left:5px;vertical-align:middle}
+.pip-1{background:#1A7A3C}.pip-2{background:#1A5FAD}.pip-3{background:#7B3FA0}
+
+/* ── PAGES ───────────────────── */
+.pg{display:none;min-height:100vh;padding-top:60px;animation:fadeIn .25s ease}
+.pg.act{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ── HERO ────────────────────── */
+.hero{background:var(--ink);color:var(--cream);padding:72px 28px 64px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none}
+.hero-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(200,152,42,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(200,152,42,.06) 1px,transparent 1px);background-size:48px 48px;opacity:.6}
+.hero-glow{position:absolute;right:-120px;top:-80px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(200,152,42,.18) 0%,transparent 65%)}
+.hero-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;position:relative}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(200,152,42,.15);border:1px solid rgba(200,152,42,.3);border-radius:20px;padding:4px 12px;font-size:11.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--gold2);margin-bottom:20px}
+.hero h1{font-size:clamp(38px,5.5vw,62px);font-weight:900;line-height:1.03;margin-bottom:22px;color:var(--cream)}
+.hero h1 em{font-style:italic;color:var(--gold2)}
+.hero-sub{font-size:17px;color:rgba(245,240,232,.6);line-height:1.7;margin-bottom:36px;max-width:500px;font-weight:400}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-gold{padding:13px 26px;background:var(--gold);color:var(--ink);border-radius:var(--r-sm);font-size:14px;font-weight:600;cursor:pointer;border:none;font-family:'Instrument Sans',sans-serif;transition:all .2s;letter-spacing:.2px}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(200,152,42,.4)}
+.btn-ghost{padding:13px 26px;background:transparent;color:var(--cream);border:1px solid rgba(245,240,232,.2);border-radius:var(--r-sm);font-size:14px;font-weight:500;cursor:pointer;font-family:'Instrument Sans',sans-serif;transition:all .2s}
+.btn-ghost:hover{border-color:rgba(245,240,232,.45);background:rgba(245,240,232,.06)}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(245,240,232,.07);border-radius:var(--r);overflow:hidden;margin-top:44px;border:1px solid rgba(245,240,232,.08)}
+.hstat{background:rgba(245,240,232,.04);padding:18px 14px;text-align:center}
+.hstat-v{font-family:'Fraunces',serif;font-size:28px;font-weight:900;color:var(--gold2);letter-spacing:-.5px}
+.hstat-l{font-size:11.5px;color:rgba(245,240,232,.45);margin-top:2px}
+.hero-card{background:rgba(245,240,232,.05);border:1px solid rgba(245,240,232,.1);border-radius:var(--r-lg);padding:22px;backdrop-filter:blur(6px)}
+.hcard-title{font-size:10.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold2);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.hcard-title::after{content:'';flex:1;height:1px;background:rgba(200,152,42,.2)}
+.corridor-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(245,240,232,.07)}
+.corridor-row:last-child{border:none;padding-bottom:0}
+.c-flag{width:34px;height:34px;border-radius:8px;background:rgba(245,240,232,.08);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.c-name{font-size:14px;font-weight:500;color:rgba(245,240,232,.88)}
+.c-sub{font-size:11.5px;color:rgba(245,240,232,.38);margin-top:1px}
+.c-duty{font-size:12.5px;font-weight:700;padding:3px 10px;border-radius:20px;flex-shrink:0}
+.duty-free{background:rgba(26,122,60,.25);color:#5DBC80}
+.duty-std{background:rgba(181,96,10,.2);color:#F0963A}
+
+/* ── SECTION ─────────────────── */
+.sec{padding:64px 28px}
+.sec-inner{max-width:1120px;margin:0 auto}
+.sec-eye{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.sec-title{font-size:34px;font-weight:800;letter-spacing:-.8px;margin-bottom:10px;color:var(--ink)}
+.sec-sub{font-size:16px;color:var(--slate);max-width:540px;line-height:1.65}
+
+/* ── PHASE TABS ──────────────── */
+.ptabs{display:flex;gap:6px;margin-bottom:32px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:0}
+.ptab{padding:10px 18px;border-radius:var(--r-sm) var(--r-sm) 0 0;font-size:13.5px;font-weight:500;cursor:pointer;border:1px solid transparent;border-bottom:none;background:none;color:var(--slate);font-family:'Instrument Sans',sans-serif;transition:all .15s;position:relative;bottom:-1px}
+.ptab:hover{color:var(--ink);background:var(--cream2)}
+.ptab.act{border-color:var(--border);background:var(--cream);color:var(--ink);font-weight:600}
+.pcontent{display:none}
+.pcontent.act{display:block}
+
+/* ── CARDS ───────────────────── */
+.card{background:var(--cream);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh)}
+.card-pad{padding:24px}
+
+/* ── CALCULATOR ──────────────── */
+.calc-shell{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-lg)}
+.calc-top{background:var(--ink);padding:22px 28px}
+.calc-top h3{font-family:'Fraunces',serif;font-size:21px;font-weight:700;color:var(--cream);margin-bottom:3px}
+.calc-top p{font-size:13px;color:rgba(245,240,232,.5)}
+.calc-body{background:var(--cream);padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media(max-width:720px){.calc-body{grid-template-columns:1fr}}
+.cform{display:flex;flex-direction:column;gap:16px}
+.fg{display:flex;flex-direction:column;gap:5px}
+.flbl{font-size:11.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--ink3)}
+.fin,.fsel{padding:10px 13px;border:1.5px solid var(--border2);border-radius:var(--r-sm);font-size:14px;font-family:'Instrument Sans',sans-serif;color:var(--ink);background:white;outline:none;transition:border .15s;width:100%}
+.fin:focus,.fsel:focus{border-color:var(--gold)}
+.cbtn{padding:12px 22px;background:var(--ink);color:var(--cream);border:none;border-radius:var(--r-sm);font-family:'Fraunces',serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.2px;margin-top:4px}
+.cbtn:hover{background:var(--ink2);transform:translateY(-1px)}
+.result-box{background:white;border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.rb-title{font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--slate2);margin-bottom:14px}
+.rrow{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--cream2);font-size:14px;color:var(--ink3)}
+.rrow:last-of-type{border:none}
+.rrow.total{font-weight:700;font-size:15px;padding-top:13px;border-top:2px solid var(--ink);border-bottom:none;margin-top:4px;color:var(--ink)}
+.rv{font-weight:600}
+.rv.g{color:var(--green)}.rv.r{color:var(--red)}.rv.au{color:var(--gold)}
+.save-chip{background:var(--green-pale);color:var(--green);border:1px solid rgba(26,122,60,.2);font-size:13px;font-weight:600;padding:9px 14px;border-radius:var(--r-sm);text-align:center;margin-top:12px;line-height:1.4}
+.hint-chip{background:var(--amber-pale);color:var(--amber);border:1px solid rgba(181,96,10,.2);font-size:12.5px;padding:9px 14px;border-radius:var(--r-sm);margin-top:10px;line-height:1.5}
+.regime-chip{background:var(--cream2);border:1px solid var(--border);font-size:12px;color:var(--slate);padding:8px 12px;border-radius:var(--r-sm);margin-top:8px}
+
+/* ── CUSTOMS GUIDE ───────────── */
+.cbts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.cbt{padding:8px 16px;border:1.5px solid var(--border2);border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;background:white;color:var(--slate);font-family:'Instrument Sans',sans-serif;transition:all .15s}
+.cbt:hover{border-color:var(--ink);color:var(--ink)}
+.cbt.act{border-color:var(--ink);background:var(--ink);color:var(--cream)}
+.guide-steps{display:flex;flex-direction:column}
+.gstep{display:flex;gap:18px;padding:16px 0}
+.gsnum-col{display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0}
+.gsnum{width:38px;height:38px;border-radius:50%;background:var(--ink);color:var(--cream);font-family:'Fraunces',serif;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center}
+.gsline{width:2px;flex:1;background:var(--border2);margin:5px 0;min-height:16px}
+.gscon{flex:1;padding-bottom:4px}
+.gstep-phase{font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.gstep-title{font-family:'Fraunces',serif;font-size:17px;font-weight:700;margin-bottom:5px;color:var(--ink)}
+.gstep-desc{font-size:13.5px;color:var(--slate);line-height:1.6;margin-bottom:8px}
+.doc-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
+.dchip{background:var(--cream2);border:1px solid var(--border);padding:3px 9px;border-radius:4px;font-size:12px;color:var(--ink3)}
+.glink{font-size:13px;color:var(--blue);font-weight:500;display:inline-flex;align-items:center;gap:4px;margin-top:4px}
+.galert{background:var(--amber-pale);border-left:3px solid var(--amber);padding:9px 13px;border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:12.5px;color:var(--amber);margin-top:7px;line-height:1.5}
+.gok{background:var(--green-pale);border-left:3px solid var(--green);padding:9px 13px;border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:12.5px;color:var(--green);margin-top:7px;line-height:1.5}
+
+/* ── PARTNERS ────────────────── */
+.pfchips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px}
+.pfchip{padding:6px 14px;border:1.5px solid var(--border2);border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;background:white;color:var(--slate);font-family:'Instrument Sans',sans-serif;transition:all .15s}
+.pfchip:hover{border-color:var(--ink);color:var(--ink)}
+.pfchip.act{border-color:var(--ink);background:var(--ink);color:var(--cream)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.pcard{background:white;border:1px solid var(--border);border-radius:var(--r);padding:18px;transition:all .2s}
+.pcard:hover{box-shadow:var(--sh);border-color:var(--border2)}
+.pcard-hd{display:flex;align-items:center;gap:11px;margin-bottom:11px}
+.pav{width:42px;height:42px;border-radius:9px;background:var(--ink);color:var(--gold2);font-family:'Fraunces',serif;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pname{font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:var(--ink)}
+.ptype{font-size:12px;color:var(--slate);margin-top:1px}
+.pvbadge{font-size:10.5px;font-weight:700;color:var(--green);background:var(--green-pale);border:1px solid rgba(26,122,60,.2);padding:2px 7px;border-radius:20px;display:flex;align-items:center;gap:3px;margin-left:auto;flex-shrink:0}
+.ptags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.ptag{background:var(--cream2);border:1px solid var(--border);padding:2px 8px;border-radius:4px;font-size:11.5px;color:var(--ink3)}
+.pmeta{display:flex;gap:14px;font-size:12.5px;color:var(--slate);flex-wrap:wrap}
+.prfq{width:100%;margin-top:12px;padding:9px;background:var(--cream);border:1.5px solid var(--border2);border-radius:var(--r-sm);font-family:'Instrument Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;color:var(--ink)}
+.prfq:hover{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+
+/* ── NTB ─────────────────────── */
+.ntblist{display:flex;flex-direction:column;gap:10px}
+.ntbcard{background:white;border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;display:flex;gap:14px;transition:box-shadow .2s}
+.ntbcard:hover{box-shadow:var(--sh)}
+.ntbbar{width:3px;border-radius:2px;flex-shrink:0;align-self:stretch}
+.nb-h{background:var(--red)}.nb-m{background:var(--amber)}.nb-l{background:var(--green)}
+.ntbicon{width:38px;height:38px;border-radius:8px;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.ntbbody{flex:1}
+.ntb-t{font-family:'Fraunces',serif;font-size:14.5px;font-weight:700;margin-bottom:3px;color:var(--ink)}
+.ntb-d{font-size:13px;color:var(--slate);line-height:1.55}
+.ntb-meta{display:flex;gap:10px;margin-top:7px;font-size:11.5px;color:var(--slate);flex-wrap:wrap;align-items:center}
+.ntbpill{padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700}
+.np-h{background:var(--red-pale);color:var(--red)}
+.np-m{background:var(--amber-pale);color:var(--amber)}
+.np-l{background:var(--green-pale);color:var(--green)}
+
+/* ── DOC GENERATOR ───────────── */
+.dgwrap{display:grid;grid-template-columns:260px 1fr;gap:20px}
+@media(max-width:720px){.dgwrap{grid-template-columns:1fr}}
+.dgmenu{display:flex;flex-direction:column;gap:5px}
+.dgitem{padding:11px 14px;border-radius:var(--r-sm);cursor:pointer;transition:all .15s;border:1px solid transparent}
+.dgitem:hover{background:var(--cream2);border-color:var(--border)}
+.dgitem.act{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+.dgitem-t{font-family:'Fraunces',serif;font-size:14px;font-weight:700}
+.dgitem-s{font-size:11.5px;opacity:.6;margin-top:1px}
+.dgpreview{background:white;border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.dgph{background:var(--cream2);border-bottom:1px solid var(--border);padding:12px 18px;display:flex;align-items:center;gap:10px}
+.dgph-t{font-family:'Fraunces',serif;font-size:14px;font-weight:700;color:var(--ink)}
+.dgdl{margin-left:auto;padding:6px 14px;background:var(--ink);color:var(--cream);border:none;border-radius:var(--r-sm);font-size:12px;font-weight:600;cursor:pointer;font-family:'Instrument Sans',sans-serif}
+.dgdoc{padding:28px;font-size:13px;line-height:1.7;color:var(--ink3);max-height:480px;overflow-y:auto}
+.dgdoc h4{font-family:'Fraunces',serif;font-size:16px;font-weight:700;color:var(--ink);margin:14px 0 8px;border-bottom:1.5px solid var(--border);padding-bottom:5px}
+.dgdoc h4:first-child{margin-top:0}
+.dgdoc table{width:100%;border-collapse:collapse;margin:10px 0;font-size:12px}
+.dgdoc th{background:var(--ink);color:var(--cream);padding:7px 9px;text-align:left;font-size:11px;letter-spacing:.4px}
+.dgdoc td{padding:7px 9px;border-bottom:1px solid var(--cream2)}
+.dgdoc tr:last-child td{border:none}
+.dgdoc tr:nth-child(even) td{background:var(--cream)}
+.dfield{display:flex;gap:8px;padding:4px 0;border-bottom:1px solid var(--cream2);font-size:12.5px}
+.dfield:last-child{border:none}
+.dflab{font-weight:600;width:150px;flex-shrink:0;color:var(--ink)}
+.dfval{color:var(--ink3)}
+.phase2-notice{background:var(--amber-pale);border:1px solid rgba(181,96,10,.2);border-radius:var(--r-sm);padding:11px 14px;font-size:13px;color:var(--amber);margin-bottom:18px;display:flex;align-items:center;gap:7px}
+
+/* ── INTELLIGENCE ────────────── */
+.ig{display:grid;grid-template-columns:1.4fr 1fr;gap:20px}
+@media(max-width:900px){.ig{grid-template-columns:1fr}}
+.icard{background:white;border:1px solid var(--border);border-radius:var(--r);padding:22px}
+.icard-t{font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:16px}
+.barchart{display:flex;flex-direction:column;gap:9px}
+.brow{display:flex;align-items:center;gap:9px;font-size:13px}
+.blbl{width:110px;text-align:right;color:var(--slate);font-size:12px;flex-shrink:0}
+.btrack{flex:1;height:9px;background:var(--cream2);border-radius:5px;overflow:hidden}
+.bfill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--ink),var(--ink2));transition:width .8s cubic-bezier(.4,0,.2,1)}
+.bfill.au{background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.bval{font-size:12px;font-weight:600;width:50px;flex-shrink:0;color:var(--ink3)}
+.clist{display:flex;flex-direction:column;gap:7px}
+.citem{display:flex;align-items:center;gap:9px;padding:9px 11px;background:var(--cream);border-radius:var(--r-sm);border:1px solid var(--border)}
+.cflag{font-size:19px}.cname{font-weight:500;font-size:14px;flex:1;color:var(--ink)}
+.cscore{font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:20px}
+.ch{background:var(--green-pale);color:var(--green)}.cm{background:var(--amber-pale);color:var(--amber)}.cl{background:var(--red-pale);color:var(--red)}
+.big-stat{text-align:center;padding:16px 0}
+.bs-v{font-family:'Fraunces',serif;font-size:44px;font-weight:900;color:var(--green);letter-spacing:-1px}
+.bs-l{font-size:13px;color:var(--slate);margin-top:3px}
+.bs-v2{font-family:'Fraunces',serif;font-size:30px;font-weight:800;color:var(--ink);margin-top:18px;letter-spacing:-.5px}
+.bs-src{font-size:11.5px;color:var(--slate2);margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+
+/* ── AI CHAT ─────────────────── */
+.chat-shell{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;height:580px;box-shadow:var(--sh-lg)}
+.chat-hd{background:var(--ink);padding:15px 22px;display:flex;align-items:center;gap:11px}
+.chat-av{width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.chat-title{font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:var(--cream)}
+.chat-st{font-size:12px;color:rgba(245,240,232,.45);display:flex;align-items:center;gap:5px}
+.chat-dot{width:6px;height:6px;border-radius:50%;background:#4ADE80}
+.chat-msgs{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:14px;background:var(--cream)}
+.cmsg{display:flex;gap:9px;max-width:88%}
+.cmsg.u{flex-direction:row-reverse;align-self:flex-end}
+.cbub{padding:11px 15px;border-radius:11px;font-size:13.5px;line-height:1.6}
+.cmsg.a .cbub{background:white;border:1px solid var(--border);border-radius:3px 11px 11px 11px;color:var(--ink)}
+.cmsg.u .cbub{background:var(--ink);color:var(--cream);border-radius:11px 3px 11px 11px}
+.cmsg-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;background:var(--cream2)}
+.chat-sugg{display:flex;gap:7px;padding:10px 18px 12px;flex-wrap:wrap;background:white;border-top:1px solid var(--border)}
+.csugg{padding:5px 11px;border:1px solid var(--border2);border-radius:20px;font-size:12px;color:var(--slate);cursor:pointer;background:white;transition:all .15s;font-family:'Instrument Sans',sans-serif}
+.csugg:hover{border-color:var(--gold);color:var(--ink)}
+.chat-in-row{display:flex;gap:9px;padding:12px 18px;border-top:1px solid var(--border);background:white}
+.chat-in{flex:1;padding:9px 13px;border:1.5px solid var(--border2);border-radius:var(--r-sm);font-size:14px;font-family:'Instrument Sans',sans-serif;outline:none;transition:border .15s;background:white;color:var(--ink)}
+.chat-in:focus{border-color:var(--gold)}
+.chat-send{padding:9px 18px;background:var(--ink);color:var(--cream);border:none;border-radius:var(--r-sm);font-family:'Fraunces',serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s}
+.chat-send:hover{background:var(--ink2)}.chat-send:disabled{opacity:.4;cursor:not-allowed}
+.tdots{display:flex;gap:4px;padding:6px 4px}
+.tdot{width:6px;height:6px;border-radius:50%;background:var(--slate2);animation:td 1.2s infinite}
+.tdot:nth-child(2){animation-delay:.2s}.tdot:nth-child(3){animation-delay:.4s}
+@keyframes td{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-5px);opacity:1}}
+
+/* ── FEATURES GRID ───────────── */
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+@media(max-width:900px){.fgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.fgrid{grid-template-columns:1fr}}
+.fcard{padding:24px;border-radius:var(--r);border:1px solid var(--border);background:white;transition:all .2s}
+.fcard:hover{border-color:var(--border2);box-shadow:var(--sh);transform:translateY(-2px)}
+.ficon{width:44px;height:44px;border-radius:10px;background:var(--ink);color:var(--gold2);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px}
+.ftitle{font-family:'Fraunces',serif;font-size:17px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.fdesc{font-size:13.5px;color:var(--slate);line-height:1.6}
+.fphase{margin-top:10px}
+.fpip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:20px}
+.fp1{background:var(--green-pale);color:var(--green)}
+.fp2{background:var(--blue-pale);color:var(--blue)}
+.fp3{background:#F3E8FF;color:#7B3FA0}
+
+/* ── PRICING ─────────────────── */
+.pgrid2{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+@media(max-width:720px){.pgrid2{grid-template-columns:1fr}}
+.prc{border:1px solid var(--border);border-radius:var(--r-lg);padding:26px;background:white;position:relative}
+.prc.feat{border-color:var(--ink);background:var(--ink);color:var(--cream)}
+.prc-name{font-family:'Fraunces',serif;font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px;color:var(--slate)}
+.prc.feat .prc-name{color:var(--gold2)}
+.prc-val{font-family:'Fraunces',serif;font-size:40px;font-weight:900;letter-spacing:-1.5px;color:var(--ink)}
+.prc.feat .prc-val{color:var(--cream)}
+.prc-per{font-size:13px;color:var(--slate);margin-bottom:18px}
+.prc.feat .prc-per{color:rgba(245,240,232,.4)}
+.prc-feats{display:flex;flex-direction:column;gap:9px;margin-bottom:22px}
+.prc-feat{display:flex;align-items:flex-start;gap:8px;font-size:13.5px;color:var(--ink3)}
+.prc.feat .prc-feat{color:rgba(245,240,232,.75)}
+.chk{width:16px;height:16px;flex-shrink:0;margin-top:1px}
+.prc-btn{width:100%;padding:12px;border-radius:var(--r-sm);font-family:'Fraunces',serif;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all .2s;letter-spacing:.2px}
+.prc:not(.feat) .prc-btn{background:var(--cream2);color:var(--ink)}
+.prc:not(.feat) .prc-btn:hover{background:var(--cream3)}
+.prc.feat .prc-btn{background:var(--gold);color:var(--ink)}
+.prc.feat .prc-btn:hover{background:var(--gold2)}
+.prc-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:11px;font-weight:700;padding:3px 13px;border-radius:20px;white-space:nowrap;letter-spacing:.4px}
+
+/* ── ROADMAP ─────────────────── */
+.rmap{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+@media(max-width:720px){.rmap{grid-template-columns:1fr}}
+.rph{border:1px solid var(--border);border-radius:var(--r);padding:22px;background:white}
+.rph-n{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px}
+.rph-t{font-family:'Fraunces',serif;font-size:19px;font-weight:800;margin-bottom:3px;color:var(--ink)}
+.rph-tl{font-size:13px;color:var(--slate);margin-bottom:14px}
+.rit{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--ink3);margin-bottom:7px}
+.rdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
+
+/* ── TOAST ───────────────────── */
+.toast{position:fixed;bottom:22px;right:22px;background:var(--ink);color:var(--cream);padding:11px 18px;border-radius:var(--r-sm);font-size:14px;font-weight:500;z-index:999;transform:translateY(70px);opacity:0;transition:all .3s;pointer-events:none;max-width:320px}
+.toast.on{transform:none;opacity:1}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="go('home')">
+    <div class="nav-mark"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+    Tradepass
+  </div>
+  <div class="nav-links">
+    <button class="nav-btn act" onclick="go('home')">Home</button>
+    <button class="nav-btn" onclick="go('tools')">Tools <span class="phase-pip pip-1"></span></button>
+    <button class="nav-btn" onclick="go('intelligence')">Intelligence <span class="phase-pip pip-2"></span></button>
+    <button class="nav-btn" onclick="go('assistant')">AI Assistant <span class="phase-pip pip-3"></span></button>
+    <button class="nav-btn" onclick="go('pricing')">Pricing</button>
+  </div>
+  <button class="nav-cta" onclick="go('tools')">Open Platform</button>
+</nav>
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════════ HOME ══════════════════ -->
+<div class="pg act" id="pg-home">
+  <div class="hero">
+    <div class="hero-bg"><div class="hero-bg-grid"></div><div class="hero-glow"></div></div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-tag">🌍 Africa's Trade Intelligence Platform</div>
+        <h1>Move goods across<br><em>Africa</em> smarter,<br>faster, cheaper.</h1>
+        <p class="hero-sub">Tradepass gives traders, importers, and exporters everything needed to navigate African cross-border trade — duties, compliance, logistics partners, and AI-powered guidance in one platform.</p>
+        <div class="hero-btns">
+          <button class="btn-gold" onclick="go('tools')">Launch Trade Tools</button>
+          <button class="btn-ghost" onclick="go('assistant')">Try AI Assistant</button>
+        </div>
+        <div class="hero-stats">
+          <div class="hstat"><div class="hstat-v">$220B</div><div class="hstat-l">Intra-African trade 2024</div></div>
+          <div class="hstat"><div class="hstat-v">54</div><div class="hstat-l">AfCFTA member states</div></div>
+          <div class="hstat"><div class="hstat-v">0%</div><div class="hstat-l">EAC duty with CoO</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="hero-card">
+          <div class="hcard-title">Live Trade Corridors</div>
+          <div class="corridor-row"><div class="c-flag">🇰🇪</div><div><div class="c-name">Kenya → Uganda</div><div class="c-sub">Electronics · EAC preferential</div></div><div class="c-duty duty-free">0%</div></div>
+          <div class="corridor-row"><div class="c-flag">🇨🇳</div><div><div class="c-name">China → Kenya</div><div class="c-sub">Electronics · Standard MFN</div></div><div class="c-duty duty-std">25%</div></div>
+          <div class="corridor-row"><div class="c-flag">🇺🇬</div><div><div class="c-name">Uganda → Egypt</div><div class="c-sub">Agriculture · COMESA</div></div><div class="c-duty duty-free">COMESA</div></div>
+          <div class="corridor-row"><div class="c-flag">🇿🇦</div><div><div class="c-name">South Africa → EAC</div><div class="c-sub">Machinery · AfCFTA</div></div><div class="c-duty duty-free">AfCFTA</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec" style="background:white">
+    <div class="sec-inner">
+      <div class="sec-eye">Everything you need</div>
+      <h2 class="sec-title">Three phases. One platform.</h2>
+      <p class="sec-sub">Built from the ground up for African traders, with intelligence that grows with every shipment.</p>
+      <div class="fgrid">
+        <div class="fcard"><div class="ficon">🧮</div><div class="ftitle">Duty Calculator</div><p class="fdesc">Full landed cost for any African corridor. Input product, route and CIF value — get duties, VAT, levies, and freight instantly.</p><div class="fphase"><span class="fpip fp1">● Phase 1</span></div></div>
+        <div class="fcard"><div class="ficon">📋</div><div class="ftitle">Customs Guide</div><p class="fdesc">Step-by-step documentation checklist for every major corridor — always in sync with EAC, COMESA, and AfCFTA rules.</p><div class="fphase"><span class="fpip fp1">● Phase 1</span></div></div>
+        <div class="fcard"><div class="ficon">🤝</div><div class="ftitle">Partner Directory</div><p class="fdesc">Verified freight forwarders and customs agents by corridor. Compare rates, reviews, and book direct.</p><div class="fphase"><span class="fpip fp1">● Phase 1</span></div></div>
+        <div class="fcard"><div class="ficon">📄</div><div class="ftitle">Document Generator</div><p class="fdesc">Auto-generate Certificates of Origin, Commercial Invoices, Packing Lists, and customs declarations from shipment data.</p><div class="fphase"><span class="fpip fp2">● Phase 2</span></div></div>
+        <div class="fcard"><div class="ficon">📊</div><div class="ftitle">Market Intelligence</div><p class="fdesc">Trade flow data by corridor, product category, and season. Know where the opportunity is before you ship.</p><div class="fphase"><span class="fpip fp2">● Phase 2</span></div></div>
+        <div class="fcard"><div class="ficon">🤖</div><div class="ftitle">AI Trade Assistant</div><p class="fdesc">Ask any trade question in plain language and get an expert answer instantly. Powered by Claude AI.</p><div class="fphase"><span class="fpip fp3">● Phase 3</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="sec-eye">Product roadmap</div>
+      <h2 class="sec-title">Built to scale with you</h2>
+      <div class="rmap">
+        <div class="rph"><div class="rph-n" style="color:var(--green)">Phase 1</div><div class="rph-t">Trade Intelligence</div><div class="rph-tl">Months 1–6</div>
+          <div class="rit"><div class="rdot" style="background:var(--green)"></div>Duty & landed cost calculator</div>
+          <div class="rit"><div class="rdot" style="background:var(--green)"></div>Customs guide (all corridors)</div>
+          <div class="rit"><div class="rdot" style="background:var(--green)"></div>Logistics partner directory</div>
+          <div class="rit"><div class="rdot" style="background:var(--green)"></div>AfCFTA treaty database</div>
+          <div class="rit"><div class="rdot" style="background:var(--green)"></div>NTB live alerts feed</div>
+        </div>
+        <div class="rph" style="border-color:var(--blue);background:var(--blue-pale)"><div class="rph-n" style="color:var(--blue)">Phase 2</div><div class="rph-t">Logistics Execution</div><div class="rph-tl">Months 6–18</div>
+          <div class="rit"><div class="rdot" style="background:var(--blue)"></div>Document generator</div>
+          <div class="rit"><div class="rdot" style="background:var(--blue)"></div>Freight marketplace & RFQ</div>
+          <div class="rit"><div class="rdot" style="background:var(--blue)"></div>Partner vetting & ratings</div>
+          <div class="rit"><div class="rdot" style="background:var(--blue)"></div>China-Africa import hub</div>
+          <div class="rit"><div class="rdot" style="background:var(--blue)"></div>PAPSS payments integration</div>
+        </div>
+        <div class="rph"><div class="rph-n" style="color:#7B3FA0">Phase 3</div><div class="rph-t">AI & Scale</div><div class="rph-tl">Months 18–36</div>
+          <div class="rit"><div class="rdot" style="background:#7B3FA0"></div>AI Trade Assistant</div>
+          <div class="rit"><div class="rdot" style="background:#7B3FA0"></div>E-commerce platform APIs</div>
+          <div class="rit"><div class="rdot" style="background:#7B3FA0"></div>Buyer-seller marketplace</div>
+          <div class="rit"><div class="rdot" style="background:#7B3FA0"></div>Analytics & benchmarking</div>
+          <div class="rit"><div class="rdot" style="background:#7B3FA0"></div>Mobile app (offline-ready)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ TOOLS ══════════════════ -->
+<div class="pg" id="pg-tools">
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="sec-eye">Phase 1 · Trade Intelligence Tools</div>
+      <h2 class="sec-title">Your complete trade toolkit</h2>
+      <p class="sec-sub">Five tools to navigate African cross-border trade with confidence.</p>
+      <div class="ptabs" style="margin-top:28px">
+        <button class="ptab act" onclick="stool('calculator',this)">🧮 Duty Calculator</button>
+        <button class="ptab" onclick="stool('customs',this)">📋 Customs Guide</button>
+        <button class="ptab" onclick="stool('partners',this)">🤝 Partners</button>
+        <button class="ptab" onclick="stool('ntb',this)">🚨 NTB Alerts</button>
+        <button class="ptab" onclick="stool('docgen',this)">📄 Doc Generator</button>
+      </div>
+
+      <!-- CALC -->
+      <div class="pcontent act" id="tc-calculator">
+        <div class="calc-shell">
+          <div class="calc-top"><h3>Landed Cost Calculator</h3><p>Full import cost breakdown for any African trade corridor</p></div>
+          <div class="calc-body">
+            <div class="cform">
+              <div class="fg"><label class="flbl">Origin Country</label>
+                <select class="fsel" id="co" onchange="uc()">
+                  <option value="KE">🇰🇪 Kenya</option><option value="CN">🇨🇳 China</option>
+                  <option value="UG">🇺🇬 Uganda</option><option value="TZ">🇹🇿 Tanzania</option>
+                  <option value="ZA">🇿🇦 South Africa</option><option value="NG">🇳🇬 Nigeria</option>
+                  <option value="GH">🇬🇭 Ghana</option><option value="EG">🇪🇬 Egypt</option>
+                </select></div>
+              <div class="fg"><label class="flbl">Destination Country</label>
+                <select class="fsel" id="cd" onchange="uc()">
+                  <option value="UG">🇺🇬 Uganda</option><option value="KE">🇰🇪 Kenya</option>
+                  <option value="TZ">🇹🇿 Tanzania</option><option value="RW">🇷🇼 Rwanda</option>
+                  <option value="EG">🇪🇬 Egypt</option><option value="ZA">🇿🇦 South Africa</option>
+                  <option value="NG">🇳🇬 Nigeria</option><option value="GH">🇬🇭 Ghana</option>
+                </select></div>
+              <div class="fg"><label class="flbl">Product Category</label>
+                <select class="fsel" id="cp" onchange="uc()">
+                  <option value="electronics">Electronics & appliances (HS 8528)</option>
+                  <option value="solar">Solar / energy products (HS 8541)</option>
+                  <option value="agri">Agricultural produce (HS 07–12)</option>
+                  <option value="textiles">Textiles & apparel (HS 61–62)</option>
+                  <option value="vehicles">Vehicles & parts (HS 87)</option>
+                  <option value="pharma">Pharmaceuticals (HS 30)</option>
+                  <option value="fmcg">FMCG / consumer goods (HS 21)</option>
+                  <option value="machinery">Industrial machinery (HS 84)</option>
+                </select></div>
+              <div class="fg"><label class="flbl">CIF Value (USD)</label>
+                <input class="fin" type="number" id="cv" value="10000" min="1" oninput="uc()"></div>
+              <div class="fg"><label class="flbl">EAC Certificate of Origin?</label>
+                <select class="fsel" id="cc" onchange="uc()">
+                  <option value="yes">Yes — I have a valid EAC CoO</option>
+                  <option value="no">No — standard tariff applies</option>
+                </select></div>
+              <button class="cbtn" onclick="showT('✅ Calculation updated')">Recalculate</button>
+            </div>
+            <div id="calc-r"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CUSTOMS -->
+      <div class="pcontent" id="tc-customs">
+        <div class="cbts" style="margin-top:4px">
+          <button class="cbt act" onclick="sc('ke-ug',this)">🇰🇪→🇺🇬 Kenya–Uganda</button>
+          <button class="cbt" onclick="sc('cn-ke',this)">🇨🇳→🇰🇪 China–Kenya</button>
+          <button class="cbt" onclick="sc('ug-eg',this)">🇺🇬→🇪🇬 Uganda–Egypt</button>
+          <button class="cbt" onclick="sc('ke-tz',this)">🇰🇪→🇹🇿 Kenya–Tanzania</button>
+        </div>
+        <div id="cg-content"></div>
+      </div>
+
+      <!-- PARTNERS -->
+      <div class="pcontent" id="tc-partners">
+        <div class="pfchips" style="margin-top:4px">
+          <button class="pfchip act" onclick="fp('all',this)">All corridors</button>
+          <button class="pfchip" onclick="fp('KE-UG',this)">🇰🇪→🇺🇬 Kenya–Uganda</button>
+          <button class="pfchip" onclick="fp('KE-TZ',this)">🇰🇪→🇹🇿 Kenya–Tanzania</button>
+          <button class="pfchip" onclick="fp('CN-AF',this)">🇨🇳→Africa</button>
+          <button class="pfchip" onclick="fp('WA',this)">West Africa</button>
+        </div>
+        <div class="pgrid" id="pg-partners"></div>
+      </div>
+
+      <!-- NTB -->
+      <div class="pcontent" id="tc-ntb">
+        <div style="display:flex;align-items:center;gap:12px;margin:4px 0 18px">
+          <div style="flex:1"><div style="font-family:'Fraunces',serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:2px">Non-Tariff Barrier Alerts</div><div style="font-size:13px;color:var(--slate)">Live updates on border disruptions, restrictions, and policy changes across Africa.</div></div>
+          <div style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--green);font-weight:600;background:var(--green-pale);padding:5px 12px;border-radius:20px;border:1px solid rgba(26,122,60,.2)"><div style="width:6px;height:6px;border-radius:50%;background:var(--green)"></div>Live feed</div>
+        </div>
+        <div class="ntblist" id="ntb-l"></div>
+      </div>
+
+      <!-- DOC GEN -->
+      <div class="pcontent" id="tc-docgen">
+        <div class="phase2-notice">⚡ <strong>Phase 2 feature</strong> — Document generation is available on Professional and Enterprise plans. Preview below is read-only.</div>
+        <div class="dgwrap">
+          <div class="dgmenu" id="dg-menu"></div>
+          <div class="dgpreview">
+            <div class="dgph"><div class="dgph-t" id="dg-pt">Commercial Invoice</div><button class="dgdl" onclick="showT('📄 Document downloaded as PDF')">⬇ Download PDF</button></div>
+            <div id="dg-body"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ INTELLIGENCE ══════════════════ -->
+<div class="pg" id="pg-intelligence">
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="sec-eye">Phase 2 · Market Intelligence</div>
+      <h2 class="sec-title">Where is the trade opportunity?</h2>
+      <p class="sec-sub">Data-driven insights on trade flows, product categories, and market gaps across Africa.</p>
+      <div class="ig" style="margin-top:32px">
+        <div>
+          <div class="icard" style="margin-bottom:16px">
+            <div class="icard-t">📦 Top Product Categories — East Africa (2024)</div>
+            <div class="barchart">
+              <div class="brow"><div class="blbl">Agri produce</div><div class="btrack"><div class="bfill" style="width:78%"></div></div><div class="bval">$18.4B</div></div>
+              <div class="brow"><div class="blbl">Minerals</div><div class="btrack"><div class="bfill" style="width:62%"></div></div><div class="bval">$14.6B</div></div>
+              <div class="brow"><div class="blbl">Electronics</div><div class="btrack"><div class="bfill au" style="width:51%"></div></div><div class="bval">$12.1B</div></div>
+              <div class="brow"><div class="blbl">FMCG</div><div class="btrack"><div class="bfill" style="width:44%"></div></div><div class="bval">$10.4B</div></div>
+              <div class="brow"><div class="blbl">Textiles</div><div class="btrack"><div class="bfill au" style="width:36%"></div></div><div class="bval">$8.5B</div></div>
+              <div class="brow"><div class="blbl">Solar/Energy</div><div class="btrack"><div class="bfill" style="width:28%"></div></div><div class="bval">$6.6B</div></div>
+              <div class="brow"><div class="blbl">Pharma</div><div class="btrack"><div class="bfill" style="width:21%"></div></div><div class="bval">$5.0B</div></div>
+            </div>
+          </div>
+          <div class="icard">
+            <div class="icard-t">🇨🇳 China → Africa Import Growth (2023–2024)</div>
+            <div class="barchart">
+              <div class="brow"><div class="blbl">New energy vehicles</div><div class="btrack"><div class="bfill au" style="width:95%"></div></div><div class="bval">+291%</div></div>
+              <div class="brow"><div class="blbl">Li-ion batteries</div><div class="btrack"><div class="bfill au" style="width:72%"></div></div><div class="bval">+109%</div></div>
+              <div class="brow"><div class="blbl">Solar panels</div><div class="btrack"><div class="bfill au" style="width:48%"></div></div><div class="bval">+57%</div></div>
+              <div class="brow"><div class="blbl">Electronics</div><div class="btrack"><div class="bfill" style="width:30%"></div></div><div class="bval">+15%</div></div>
+              <div class="brow"><div class="blbl">Machinery</div><div class="btrack"><div class="bfill" style="width:20%"></div></div><div class="bval">+8%</div></div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="icard">
+            <div class="icard-t">🎯 Market Opportunity Score</div>
+            <div class="clist">
+              <div class="citem"><div class="cflag">🇰🇪</div><div class="cname">Kenya</div><div class="cscore ch">High</div></div>
+              <div class="citem"><div class="cflag">🇳🇬</div><div class="cname">Nigeria</div><div class="cscore ch">High</div></div>
+              <div class="citem"><div class="cflag">🇬🇭</div><div class="cname">Ghana</div><div class="cscore ch">High</div></div>
+              <div class="citem"><div class="cflag">🇺🇬</div><div class="cname">Uganda</div><div class="cscore cm">Medium</div></div>
+              <div class="citem"><div class="cflag">🇷🇼</div><div class="cname">Rwanda</div><div class="cscore cm">Medium</div></div>
+              <div class="citem"><div class="cflag">🇪🇬</div><div class="cname">Egypt</div><div class="cscore cm">Medium</div></div>
+              <div class="citem"><div class="cflag">🇨🇩</div><div class="cname">DRC</div><div class="cscore cl">High Risk</div></div>
+            </div>
+          </div>
+          <div class="icard">
+            <div class="icard-t">📈 Intra-African Trade</div>
+            <div class="big-stat">
+              <div class="bs-v">+12.4%</div>
+              <div class="bs-l">Year-on-year growth in 2024</div>
+              <div class="bs-v2">$220.3B</div>
+              <div class="bs-l">Total intra-African trade volume</div>
+              <div class="bs-src">Source: Afreximbank Africa Trade Report 2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ ASSISTANT ══════════════════ -->
+<div class="pg" id="pg-assistant">
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="sec-eye">Phase 3 · AI Trade Assistant</div>
+      <h2 class="sec-title">Ask anything about African trade</h2>
+      <p class="sec-sub">Powered by Claude AI. Get instant expert answers about duties, customs, AfCFTA, and logistics for any African corridor.</p>
+      <div class="chat-shell" style="margin-top:28px">
+        <div class="chat-hd">
+          <div class="chat-av">🌍</div>
+          <div><div class="chat-title">Tradepass AI Assistant</div><div class="chat-st"><div class="chat-dot"></div>Online · Powered by Claude</div></div>
+        </div>
+        <div class="chat-msgs" id="chat-msgs">
+          <div class="cmsg a"><div class="cmsg-av">🌍</div><div class="cbub">Hello! I'm your Tradepass AI Trade Assistant. I can help with:<br><br>
+          • Import duties and taxes for any African corridor<br>
+          • AfCFTA, EAC, COMESA, ECOWAS treaty benefits<br>
+          • Customs documentation requirements<br>
+          • China-Africa trade regulations and the new zero-tariff policy<br>
+          • Market opportunities and supply gaps across Africa<br><br>
+          What trade question can I answer for you today?</div></div>
+        </div>
+        <div class="chat-sugg" id="chat-sugg">
+          <button class="csugg" onclick="qs(this)">What duties apply to electronics imported from China into Kenya?</button>
+          <button class="csugg" onclick="qs(this)">How do I get an EAC Certificate of Origin?</button>
+          <button class="csugg" onclick="qs(this)">What products are in demand in the DRC?</button>
+          <button class="csugg" onclick="qs(this)">Explain AfCFTA preferential tariff rules</button>
+        </div>
+        <div class="chat-in-row">
+          <input class="chat-in" id="chat-in" placeholder="Ask about duties, customs, AfCFTA, logistics..." onkeydown="if(event.key==='Enter')sc2()">
+          <button class="chat-send" id="chat-s" onclick="sc2()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ PRICING ══════════════════ -->
+<div class="pg" id="pg-pricing">
+  <div class="sec">
+    <div class="sec-inner">
+      <div class="sec-eye">Simple, transparent pricing</div>
+      <h2 class="sec-title">Start free. Scale as you grow.</h2>
+      <p class="sec-sub">Every plan includes full Phase 1 tools. Unlock Phase 2 & 3 as your trade volumes grow.</p>
+      <div class="pgrid2">
+        <div class="prc">
+          <div class="prc-name">Starter</div>
+          <div class="prc-val">Free</div>
+          <div class="prc-per">Forever — no credit card needed</div>
+          <div class="prc-feats">
+            <div class="prc-feat"><svg class="chk" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#1A7A3C" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#1A7A3C" stroke-width="1.5" stroke-linecap="round"/></svg>Duty calculator (10 queries/mo)</div>
+            <div class="prc-feat"><svg class="chk" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#1A7A3C" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#1A7A3C" stroke-width="1.5" stroke-linecap="round"/></svg>Customs guide — 2 corridors</div>
+            <div class="prc-feat"><svg class="chk" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#1A7A3C" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#1A7A3C" stroke-width="1.5" stroke-linecap="round"/></svg>Partner directory (view only)</div>
+            <div class="prc-feat"><svg class="chk" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#1A7A3C" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#1A7A3C" stroke-width="1.5" stroke-linecap="round"/></svg>NTB alerts (weekly digest)</div>
+          </div>
+          <button class="prc-btn" onclick="showT('🎉 Your free account is ready!')">Get started free</button>
+        </div>
+        <div class="prc feat">
+          <div class="prc-badge">MOST POPULAR</div>
+          <div class="prc-name">Professional</div>
+          <div class="prc-val">$49<span style="font-size:17px;font-weight:400">/mo</span></div>
+          <div class="prc-per">Billed monthly · cancel anytime</div>
+          <div class="prc-feats">
+            <div class="prc-feat"><svg class="chk" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#C8982A" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#C8982A" stroke-width="1.5" stroke-linecap="round"/></svg>Unlimited duty calculations</div>
+            <div class="prc-feat"><svg class="chk" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#C8982A" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#C8982A" stroke-width="1.5" stroke-linecap="round"/></svg>All corridors — full guide</div>
+            <div class="prc-feat"><svg class="chk" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#C8982A" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#C8982A" stroke-width="1.5" stroke-linecap="round"/></svg>Partner RFQ & booking</div>
+            <div class="prc-feat"><svg class="chk" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#C8982A" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#C8982A" stroke-width="1.5" stroke-linecap="round"/></svg>Document generator</div>
+            <div class="prc-feat"><svg class="chk" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#C8982A" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#C8982A" stroke-width="1.5" stroke-linecap="round"/></svg>Real-time NTB alerts</div>
+            <div class="prc-feat"><svg class="chk" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#C8982A" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#C8982A" stroke-width="1.5" stroke-linecap="round"/></svg>AI Assistant — 100 queries/mo</div>
+          </div>
+          <button class="prc-btn" onclick="showT('🚀 Starting your 14-day free trial!')">Start 14-day free trial</button>
+        </div>
+        <div class="prc">
+          <div class="prc-name">Enterprise</div>
+          <div class="prc-val">$299<span style="font-size:17px;font-weight:400">/mo</span></div>
+          <div class="prc-per">Volume discounts available</div>
+          <div class="prc-feats">
+            <div class="prc-feat"><svg class="chk" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#1A7A3C" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#1A7A3C" stroke-width="1.5" stroke-linecap="round"/></svg>Everything in Professional</div>
+            <div class="prc-feat"><svg class="chk" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#1A7A3C" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#1A7A3C" stroke-width="1.5" stroke-linecap="round"/></svg>Full market intelligence</div>
+            <div class="prc-feat"><svg class="chk" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#1A7A3C" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#1A7A3C" stroke-width="1.5" stroke-linecap="round"/></svg>Unlimited AI Assistant</div>
+            <div class="prc-feat"><svg class="chk" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#1A7A3C" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#1A7A3C" stroke-width="1.5" stroke-linecap="round"/></svg>API access for integrations</div>
+            <div class="prc-feat"><svg class="chk" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#1A7A3C" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#1A7A3C" stroke-width="1.5" stroke-linecap="round"/></svg>Dedicated account manager</div>
+          </div>
+          <button class="prc-btn" onclick="showT('📞 We\'ll be in touch within 24 hours!')">Contact sales</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer style="background:var(--ink);color:rgba(245,240,232,.5);padding:32px 28px;text-align:center;font-size:13px">
+  <span style="font-family:'Fraunces',serif;color:var(--gold2);font-weight:700">Tradepass</span> — Africa's Trade Intelligence Platform &nbsp;·&nbsp; © 2026
+</footer>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+const DD={
+  'KE-UG':{electronics:{s:25,c:0,v:18,l:1.5},solar:{s:0,c:0,v:18,l:1.5},agri:{s:0,c:0,v:0,l:1.5},textiles:{s:25,c:0,v:18,l:1.5},vehicles:{s:25,c:0,v:18,l:1.5},pharma:{s:0,c:0,v:0,l:1.5},fmcg:{s:25,c:0,v:18,l:1.5},machinery:{s:10,c:0,v:18,l:1.5}},
+  'KE-TZ':{electronics:{s:25,c:0,v:18,l:0},solar:{s:0,c:0,v:18,l:0},agri:{s:0,c:0,v:0,l:0},textiles:{s:25,c:0,v:18,l:0},vehicles:{s:25,c:0,v:18,l:0},pharma:{s:0,c:0,v:0,l:0},fmcg:{s:25,c:0,v:18,l:0},machinery:{s:10,c:0,v:18,l:0}},
+  'CN-KE':{electronics:{s:25,c:25,v:16,l:3.5},solar:{s:0,c:0,v:0,l:3.5},agri:{s:0,c:0,v:0,l:3.5},textiles:{s:35,c:35,v:16,l:3.5},vehicles:{s:25,c:25,v:16,l:3.5},pharma:{s:0,c:0,v:0,l:3.5},fmcg:{s:25,c:25,v:16,l:3.5},machinery:{s:0,c:0,v:16,l:3.5}},
+  'CN-UG':{electronics:{s:25,c:25,v:18,l:1.5},solar:{s:0,c:0,v:18,l:1.5},agri:{s:0,c:0,v:0,l:1.5},textiles:{s:25,c:25,v:18,l:1.5},vehicles:{s:25,c:25,v:18,l:1.5},pharma:{s:0,c:0,v:0,l:1.5},fmcg:{s:25,c:25,v:18,l:1.5},machinery:{s:10,c:10,v:18,l:1.5}},
+  'UG-EG':{electronics:{s:14,c:0,v:14,l:0},solar:{s:0,c:0,v:0,l:0},agri:{s:5,c:0,v:0,l:0},textiles:{s:12,c:0,v:14,l:0},vehicles:{s:40,c:5,v:14,l:0},pharma:{s:0,c:0,v:0,l:0},fmcg:{s:20,c:5,v:14,l:0},machinery:{s:5,c:0,v:14,l:0}},
+  default:{electronics:{s:25,c:10,v:18,l:1},solar:{s:5,c:0,v:16,l:1},agri:{s:5,c:0,v:5,l:1},textiles:{s:25,c:10,v:18,l:1},vehicles:{s:30,c:15,v:18,l:1},pharma:{s:5,c:0,v:5,l:1},fmcg:{s:20,c:10,v:18,l:1},machinery:{s:10,c:5,v:18,l:1}}
+};
+const FR={'KE-UG':950,'KE-TZ':850,'CN-KE':1800,'CN-UG':2100,'UG-EG':1400,default:1200};
+const CL={'KE-UG':'EAC — 0% duty with valid CoO','CN-KE':'No FTA — full MFN tariffs apply','UG-EG':'COMESA — reduced/0% for qualifying goods','KE-TZ':'EAC — 0% duty with valid CoO',default:'Standard tariff regime'};
+
+const CG={
+  'ke-ug':{lbl:'Kenya → Uganda (EAC)',treaty:'EAC Customs Union Protocol · Single Customs Territory',steps:[
+    {n:'1',ph:'Pre-Production',t:'Verify EAC 35% local content threshold',d:'Your goods must contain ≥35% EAC-origin value (materials + labour from EAC member states) to qualify for 0% preferential duty. Prepare a Bill of Materials (BOM) with cost breakdown.',docs:['Bill of Materials (BOM)','Production cost sheet'],link:'https://esystems.kebs.org',lt:'KEBS eSystems Portal',w:'If local content falls below 35%, standard 25% CET applies — no exceptions.'},
+    {n:'2',ph:'Documentation',t:'Apply for EAC Certificate of Origin at KEBS',d:'Apply to Kenya Bureau of Standards (KEBS) with your BOM, KRA PIN, business registration, and commercial documents. KEBS may conduct a factory inspection for first-time applicants.',docs:['KEBS CoO application form','Bill of Materials','KRA PIN certificate','Business registration'],link:'https://esystems.kebs.org',lt:'Apply at KEBS eSystems',ok:'Processing time: 3–7 working days. Cost: KES 5,000–15,000.'},
+    {n:'3',ph:'Documentation',t:'Prepare commercial export documents',d:'Commercial Invoice (HS code 8528.72 for TVs), Packing List, Bill of Lading/CMR Waybill, and KRA Export Entry via iCMS.',docs:['Commercial Invoice','Packing List','Bill of Lading / CMR Waybill','KRA Export Entry (iCMS)'],link:'https://customs.kra.go.ke',lt:'KRA iCMS Portal'},
+    {n:'4',ph:'Uganda Pre-clearance',t:'Buyer submits Import Declaration Form (IDF) via URA',d:'Your Ugandan buyer\'s clearing agent submits an IDF on the URA online portal before goods arrive at the border. Provide all your documents to them in advance.',docs:['IDF reference number (from buyer)'],link:'https://customs.ura.go.ug',lt:'URA Customs Portal',w:'IDF must be submitted before goods arrive. Discrepancies between IDF and physical docs trigger delays.'},
+    {n:'5',ph:'Transport',t:'Dispatch to Malaba or Busia OSBP',d:'Load onto a licensed transporter. One Stop Border Posts at Malaba and Busia handle Kenya exit and Uganda entry in one location. Nairobi→Kampala: ~6–8 hours, USD 800–1,500 per 20ft container.',docs:['Transporter waybill','Truck manifest','Transporter licence'],link:'https://kentrade.go.ke',lt:'KenTrade corridor info'},
+    {n:'6',ph:'Border Clearance',t:'Clear customs at OSBP — 0% duty with CoO',d:'Uganda customs verifies CoO, IDF, and cargo alignment. With valid EAC CoO: 0% import duty. VAT 18% + IDL 1.5% still applies on CIF value.',docs:['All documents presented jointly'],w:'Physical examination of sample cartons may occur. Ensure Packing List is 100% accurate.'},
+    {n:'7',ph:'Payment',t:'Pay Uganda VAT (18%) + Infrastructure Levy (1.5%)',d:'Pay via URA electronic system. Clearing agent generates Payment Registration Number (PRN). Total cost with CoO: 19.5% of CIF. Without CoO: 44.5% of CIF.',docs:['PRN from URA','Payment receipt'],ok:'Saving with EAC CoO on $10,000 shipment: $2,500 in waived import duty.'},
+    {n:'8',ph:'Delivery',t:'Collect Release Order and deliver to Kampala',d:'URA issues Release Order after payment. Transporter presents this to exit border. Retain all customs docs for 5+ years for URA audit purposes.',docs:['URA Release Order','Delivery note']}
+  ]},
+  'cn-ke':{lbl:'China → Kenya (Standard MFN)',treaty:'No FTA — WTO MFN tariffs apply. PVoC pre-shipment inspection required.',steps:[
+    {n:'1',ph:'Supplier',t:'Select supplier and agree Incoterms (CIF Mombasa)',d:'Use Alibaba, 1688, or direct factory sourcing. Agree CIF Mombasa to simplify Kenya import cost calculation.',docs:['Pro-forma Invoice','Supplier business licence']},
+    {n:'2',ph:'Pre-Shipment',t:'Arrange KEBS Pre-Export Verification of Conformity (PVoC)',d:'Kenya requires PVoC for electronics, solar, food, and many other categories. Goods must be tested by a KEBS-approved lab in China before shipment.',docs:['PVoC Certificate of Conformity','Lab test reports'],link:'https://kebs.org',lt:'KEBS PVoC Scheme',w:'Without a valid PVoC certificate, goods will be held at Mombasa Port — often for weeks. Apply 3–4 weeks before shipment.'},
+    {n:'3',ph:'Documentation',t:'Prepare all import documents',d:'Commercial Invoice, Packing List, Bill of Lading, Certificate of Origin (China CCPIT), PVoC Certificate, Insurance Certificate.',docs:['Commercial Invoice','Packing List','Bill of Lading (sea)','Certificate of Origin (CCPIT)','PVoC Certificate','Insurance Certificate'],link:'https://customs.kra.go.ke',lt:'KRA iCMS'},
+    {n:'4',ph:'Pre-Clearance',t:'Submit Import Declaration Form (IDF) on KRA iCMS',d:'Lodge IDF before goods arrive at Mombasa Port. HS code accuracy is critical — misclassification is the most common audit trigger. Electronics: HS 8471 (laptops), 8528 (TVs).',docs:['IDF on KRA iCMS'],w:'25% import duty + 16% VAT + 3.5% IDF levy applies on electronics from China. No duty exemption.'},
+    {n:'5',ph:'Customs Clearance',t:'Clear goods at Mombasa Port / ICD',d:'Engage a licensed clearing agent. Goods may be placed under examination. Pay duties via KRA eCitizen. Average clearance: 5–10 days.',docs:['Release Order from KRA'],ok:'Tip: Using a pre-registered clearing agent with an established relationship with KRA speeds up clearance significantly.'},
+    {n:'6',ph:'Delivery',t:'Transport to Nairobi or final destination',d:'Goods released from port. Transport to Nairobi ICD (Embakasi) or directly to customer. Retain all customs documents for 5 years.',docs:['Delivery order','Final receipt']}
+  ]},
+  'ug-eg':{lbl:'Uganda → Egypt (COMESA)',treaty:'COMESA Preferential Trade Agreement — both Uganda and Egypt are members',steps:[
+    {n:'1',ph:'Documentation',t:'Obtain COMESA Certificate of Origin',d:'Apply via Uganda Export Promotions Board or COMESA Secretariat. Goods must meet COMESA Rules of Origin (35% value addition within COMESA countries).',docs:['COMESA CoO application','BOM with value addition calculation'],link:'https://www.comesa.int',lt:'COMESA Trade Portal',ok:'COMESA members get significantly reduced or 0% tariffs on qualifying goods — especially agricultural produce.'},
+    {n:'2',ph:'Export',t:'Prepare export documents and register with URA',d:'Commercial Invoice, Packing List, COMESA CoO, phytosanitary certificates (for agricultural goods), Export Entry via URA portal.',docs:['Commercial Invoice','COMESA Certificate of Origin','Phytosanitary certificate (for agri)','URA Export Entry'],link:'https://customs.ura.go.ug',lt:'URA Export Portal'},
+    {n:'3',ph:'Transport',t:'Choose sea or air route via Mombasa or Entebbe',d:'Primary route: Uganda → Kenya → sea freight from Mombasa to Alexandria (10–18 days). Air freight via Entebbe direct to Cairo (3–5 days; 5–8x cost of sea).',docs:['Bill of Lading (sea) or Air Waybill','Transit bond for Kenya transit'],w:'Transit through Kenya requires a Transit Bond. Engage a freight forwarder experienced on the Northern Corridor.'},
+    {n:'4',ph:'Egypt Customs',t:'Register with GOEIC and clear at Alexandria Port',d:'Egypt requires GOEIC pre-registration for electronics, food, cosmetics, and many other regulated products. Apply 3–4 weeks in advance.',docs:['GOEIC registration certificate','Commercial Invoice','COMESA CoO','Packing List'],link:'https://goeic.gov.eg',lt:'GOEIC Egypt Portal',w:'GOEIC pre-registration can take 2–4 weeks. Apply before goods are shipped. Without it, goods are rejected at port.'},
+    {n:'5',ph:'Payment',t:'Pay Egypt import duties',d:'With COMESA CoO: 0% duty on qualifying agricultural goods. Electronics: 5–14% standard duty. VAT 14% applies to all goods.',docs:['Duty payment receipt'],ok:'Uganda coffee, tea, sesame, and fresh produce qualify for 0% duty in Egypt under COMESA.'}
+  ]},
+  'ke-tz':{lbl:'Kenya → Tanzania (EAC)',treaty:'EAC Customs Union — but Tanzania import restrictions apply periodically',steps:[
+    {n:'1',ph:'Pre-check',t:'Verify Tanzania has no import restriction on your product',d:'Tanzania periodically restricts imports of specific goods to protect local industry. Check with Tanzania Revenue Authority (TRA) before committing to any shipment.',docs:['TRA import restriction check'],link:'https://www.tra.go.tz',lt:'TRA Tanzania Portal',w:'Tanzania has historically banned imports of used clothing, certain poultry, some agri products, and second-hand electronics. Verify before shipping.'},
+    {n:'2',ph:'Documentation',t:'Obtain EAC Certificate of Origin from KEBS',d:'Same process as Kenya-Uganda. Apply to KEBS with BOM, KRA PIN, and business registration. HS code must be correctly declared.',docs:['EAC Certificate of Origin (KEBS)','Commercial Invoice','Packing List','Bill of Lading'],link:'https://esystems.kebs.org',lt:'KEBS eSystems'},
+    {n:'3',ph:'Tanzania Pre-clearance',t:'Buyer submits IDF via Tanzania Customs Integrated System (TANCIS)',d:'Your Tanzanian buyer\'s clearing agent submits IDF on TANCIS. Tanzania\'s digital system reduced average clearance from 31 to 16 days.',docs:['TANCIS IDF submission'],link:'https://www.tra.go.tz',lt:'TRA TANCIS Portal',ok:'TANCIS digital clearance: average 16 days (down from 31). Ensure all documents are submitted accurately.'},
+    {n:'4',ph:'Border',t:'Cross at Namanga or Lunga Lunga OSBP',d:'Two main OSBPs: Namanga (road to Arusha/Dar es Salaam) and Lunga Lunga (coastal route to Tanga). Both process Kenya exit and Tanzania entry jointly.',docs:['All documents presented jointly']},
+    {n:'5',ph:'Payment',t:'Pay Tanzania VAT (18%) — 0% duty with EAC CoO',d:'With valid EAC CoO: 0% import duty. 18% VAT applies on CIF value. No Infrastructure Development Levy in Tanzania.',docs:['Payment receipt'],ok:'Total landed cost with EAC CoO: 18% VAT only. Without CoO: 43% (25% duty + 18% VAT).'}
+  ]}
+};
+
+const PARTNERS=[
+  {id:1,n:'Siginon Freight',t:'Road freight & customs clearance',c:['KE-UG','KE-TZ','KE-RW'],r:4.8,sh:'12,000+/yr',sp:'2–3 days KE-UG',v:true},
+  {id:2,n:'Bolloré Africa Logistics',t:'Multimodal · Sea + Road',c:['KE-UG','CN-AF','KE-TZ'],r:4.7,sh:'8,500+/yr',sp:'3–4 days KE-UG',v:true},
+  {id:3,n:'Apexloads',t:'SaaS freight platform · verified brokers',c:['KE-UG','KE-TZ','KE-RW'],r:4.6,sh:'3,200+/yr',sp:'2–4 days',v:true},
+  {id:4,n:'Swiftway Shippers',t:'Air & sea freight · cross-border',c:['WA','CN-AF'],r:4.5,sh:'500+/yr',sp:'3–5 days air',v:true},
+  {id:5,n:'Logidoo',t:'End-to-end logistics tech',c:['CN-AF','KE-UG','WA'],r:4.4,sh:'2,100+/yr',sp:'Varies by mode',v:true},
+  {id:6,n:'Maersk East Africa',t:'Sea freight + inland logistics',c:['CN-AF','KE-UG'],r:4.9,sh:'50,000+/yr',sp:'Sea: 18–22 days',v:true},
+  {id:7,n:'DHL Express Africa',t:'Express courier · all corridors',c:['KE-UG','KE-TZ','WA','CN-AF'],r:4.8,sh:'100k+/yr',sp:'1–3 days express',v:true},
+  {id:8,n:'Yobante Express',t:'Last-mile & regional (Senegal)',c:['WA'],r:4.3,sh:'800+/yr',sp:'2–5 days regional',v:true},
+];
+
+const NTBS=[
+  {s:'h',ic:'🚨',t:'Tanzania: Delays at Namanga OSBP',d:'Extended processing at Namanga (Kenya-Tanzania). Average clearance now 3–4 days vs. usual 1 day due to new document verification requirements for electronics.',r:'KE-TZ',dt:'2 days ago',p:'np-h',pt:'High impact'},
+  {s:'m',ic:'⚠️',t:'Uganda: New VAT registration requirement for Kenyan exporters',d:'URA now requires Kenyan exporters shipping above UGX 150M/year to register for VAT in Uganda. Takes effect Q2 2026.',r:'KE-UG',dt:'1 week ago',p:'np-m',pt:'Policy change'},
+  {s:'l',ic:'✅',t:'COMESA: Reduced documentary requirements for agri exports',d:'COMESA Secretariat has reduced certificates required for agricultural produce between member states. Phytosanitary certificate now accepted as sole conformity document for most fresh produce.',r:'COMESA',dt:'2 weeks ago',p:'np-l',pt:'Positive'},
+  {s:'m',ic:'⚠️',t:'Kenya: PVoC scope expanded to solar products',d:'KEBS has expanded PVoC requirement to include solar panels and related equipment from China. Effective June 2026. Apply for PVoC before shipping.',r:'CN-KE',dt:'3 weeks ago',p:'np-m',pt:'Compliance'},
+  {s:'l',ic:'✅',t:'AfCFTA: Electronic Certificate of Origin pilot in 12 member states',d:'AfCFTA Secretariat has launched an e-CoO pilot. Participating: Kenya, Ghana, Rwanda, Egypt, South Africa, Nigeria, and 6 others. Eliminates need for physical CoO for these routes.',r:'Pan-Africa',dt:'1 month ago',p:'np-l',pt:'AfCFTA update'},
+  {s:'h',ic:'🚨',t:'DRC: Eastern border crossings restricted',d:'Selected crossings in eastern DRC remain restricted due to security concerns. Logistics through DRC affected. Alternative: route via Kampala or Kigali hubs.',r:'DRC',dt:'Ongoing',p:'np-h',pt:'Critical'},
+];
+
+const DOCS=[
+  {id:'invoice',t:'Commercial Invoice',s:'For all shipments'},
+  {id:'packing',t:'Packing List',s:'Carton breakdown'},
+  {id:'coo',t:'EAC Certificate of Origin',s:'KEBS template'},
+  {id:'idf',t:'Import Declaration Form',s:'URA Uganda (IDF)'},
+  {id:'bol',t:'Bill of Lading',s:'Road freight (CMR)'},
+];
+const DOC_HTML={
+  invoice:`<div class="dgdoc"><h4>COMMERCIAL INVOICE</h4>
+  <div class="dfield"><div class="dflab">Seller</div><div class="dfval">Savanna Electronics Ltd, Baba Dogo Rd, Nairobi, Kenya | PIN: P051234567X</div></div>
+  <div class="dfield"><div class="dflab">Buyer</div><div class="dfval">Kampala Tech Distributors Ltd, Plot 45 Nakawa, Kampala, Uganda | TIN: 1001234567</div></div>
+  <div class="dfield"><div class="dflab">Invoice No.</div><div class="dfval">SELTD-EXP-2026-0042 &nbsp;|&nbsp; Date: 18 March 2026</div></div>
+  <div class="dfield"><div class="dflab">Country of Origin</div><div class="dfval">Kenya (EAC Member State)</div></div>
+  <div class="dfield"><div class="dflab">Incoterms</div><div class="dfval">CIF Kampala</div></div>
+  <div class="dfield"><div class="dflab">HS Code</div><div class="dfval">8528.72 — Colour reception apparatus for television</div></div>
+  <h4>Line Items</h4>
+  <table><tr><th>Description</th><th>HS Code</th><th>Qty</th><th>Unit Price</th><th>Total</th></tr>
+  <tr><td>32" LED Colour TV, Model SE-TV32</td><td>8528.72</td><td>200</td><td>USD 67.50</td><td>USD 13,500.00</td></tr>
+  <tr><td colspan="4">Freight (road, Nairobi–Kampala)</td><td>USD 950.00</td></tr>
+  <tr><td colspan="4">Insurance (0.5%)</td><td>USD 72.25</td></tr>
+  <tr><td colspan="4"><strong>TOTAL CIF VALUE</strong></td><td><strong>USD 14,522.25</strong></td></tr></table>
+  <p style="margin-top:14px;font-size:12px;font-style:italic;color:var(--slate)">I certify that the information on this invoice is true and correct and that the goods described are of Kenya origin.</p></div>`,
+  packing:`<div class="dgdoc"><h4>PACKING LIST</h4>
+  <div class="dfield"><div class="dflab">Exporter</div><div class="dfval">Savanna Electronics Ltd, Nairobi, Kenya</div></div>
+  <div class="dfield"><div class="dflab">Invoice Ref</div><div class="dfval">SELTD-EXP-2026-0042 | 18 March 2026</div></div>
+  <div class="dfield"><div class="dflab">Total packages</div><div class="dfval">20 cartons</div></div>
+  <div class="dfield"><div class="dflab">Gross weight</div><div class="dfval">520 kg</div></div>
+  <h4>Carton Breakdown</h4>
+  <table><tr><th>Cartons</th><th>Contents</th><th>Qty</th><th>Net Wt</th><th>Gross Wt</th><th>Dims (cm)</th></tr>
+  <tr><td>1–5</td><td>32" LED TV SE-TV32</td><td>10</td><td>24 kg</td><td>26 kg</td><td>90×60×55</td></tr>
+  <tr><td>6–10</td><td>32" LED TV SE-TV32</td><td>10</td><td>24 kg</td><td>26 kg</td><td>90×60×55</td></tr>
+  <tr><td>11–15</td><td>32" LED TV SE-TV32</td><td>10</td><td>24 kg</td><td>26 kg</td><td>90×60×55</td></tr>
+  <tr><td>16–20</td><td>32" LED TV SE-TV32</td><td>10</td><td>24 kg</td><td>26 kg</td><td>90×60×55</td></tr>
+  <tr><td><strong>TOTAL</strong></td><td></td><td><strong>200</strong></td><td><strong>480 kg</strong></td><td><strong>520 kg</strong></td><td></td></tr></table></div>`,
+  coo:`<div class="dgdoc"><h4>EAC CERTIFICATE OF ORIGIN</h4>
+  <p style="font-size:12px;color:var(--slate);margin-bottom:12px">Issued by Kenya Bureau of Standards (KEBS) — EAC Customs Union Protocol</p>
+  <div class="dfield"><div class="dflab">Exporter</div><div class="dfval">Savanna Electronics Ltd, Nairobi, Kenya | PIN: P051234567X</div></div>
+  <div class="dfield"><div class="dflab">Consignee</div><div class="dfval">Kampala Tech Distributors Ltd, Kampala, Uganda</div></div>
+  <div class="dfield"><div class="dflab">Transport</div><div class="dfval">Road freight via Malaba OSBP</div></div>
+  <div class="dfield"><div class="dflab">HS Code</div><div class="dfval">8528.72 — Colour reception apparatus for television</div></div>
+  <div class="dfield"><div class="dflab">Description</div><div class="dfval">32-inch LED Colour Television, Model SE-TV32 (200 units, 520 kg)</div></div>
+  <div class="dfield"><div class="dflab">EAC Local Content</div><div class="dfval" style="color:var(--green);font-weight:600">50.0% — QUALIFIES (minimum 35% required)</div></div>
+  <div class="dfield"><div class="dflab">CoO Reference</div><div class="dfval">KEBS/CoO/2026/0042</div></div>
+  <div class="dfield"><div class="dflab">Issue Date</div><div class="dfval">15 March 2026</div></div>
+  <div style="margin-top:14px;padding:11px 13px;background:var(--green-pale);border-radius:var(--r-sm);font-size:12.5px;color:var(--green);border:1px solid rgba(26,122,60,.2)">
+  ✅ This certificate entitles the goods to 0% import duty in all EAC member states: Uganda, Tanzania, Rwanda, Burundi, and DRC.</div></div>`,
+  idf:`<div class="dgdoc"><h4>IMPORT DECLARATION FORM (IDF) — URA UGANDA</h4>
+  <p style="font-size:12px;color:var(--slate);margin-bottom:12px">Submitted by the Ugandan importer's clearing agent via customs.ura.go.ug</p>
+  <div class="dfield"><div class="dflab">Importer TIN</div><div class="dfval">1001234567 (Kampala Tech Distributors Ltd)</div></div>
+  <div class="dfield"><div class="dflab">Supplier</div><div class="dfval">Savanna Electronics Ltd, Nairobi, Kenya</div></div>
+  <div class="dfield"><div class="dflab">HS Code</div><div class="dfval">8528.72</div></div>
+  <div class="dfield"><div class="dflab">Description</div><div class="dfval">32" LED Colour TV, Model SE-TV32 (200 units)</div></div>
+  <div class="dfield"><div class="dflab">CIF Value</div><div class="dfval">USD 14,522.25</div></div>
+  <div class="dfield"><div class="dflab">Country of Origin</div><div class="dfval">Kenya</div></div>
+  <div class="dfield"><div class="dflab">Trade Regime</div><div class="dfval" style="color:var(--green);font-weight:600">EAC Preferential — 0% import duty (EAC CoO provided)</div></div>
+  <div class="dfield"><div class="dflab">VAT (18%)</div><div class="dfval">USD 2,614.01</div></div>
+  <div class="dfield"><div class="dflab">IDL (1.5%)</div><div class="dfval">USD 217.83</div></div>
+  <div class="dfield"><div class="dflab">Total Tax Payable</div><div class="dfval" style="font-weight:700">USD 2,831.84</div></div></div>`,
+  bol:`<div class="dgdoc"><h4>ROAD CONSIGNMENT NOTE (CMR WAYBILL)</h4>
+  <div class="dfield"><div class="dflab">Shipper</div><div class="dfval">Savanna Electronics Ltd, Nairobi, Kenya</div></div>
+  <div class="dfield"><div class="dflab">Consignee</div><div class="dfval">Kampala Tech Distributors Ltd, Nakawa Industrial Area, Kampala, Uganda</div></div>
+  <div class="dfield"><div class="dflab">Carrier</div><div class="dfval">Siginon Freight Ltd | Truck Reg: KDG 245X</div></div>
+  <div class="dfield"><div class="dflab">Origin</div><div class="dfval">Savanna Electronics Factory, Baba Dogo Rd, Nairobi</div></div>
+  <div class="dfield"><div class="dflab">Destination</div><div class="dfval">Nakawa Industrial Area, Kampala, Uganda</div></div>
+  <div class="dfield"><div class="dflab">Crossing point</div><div class="dfval">Malaba OSBP</div></div>
+  <div class="dfield"><div class="dflab">Cargo description</div><div class="dfval">32" LED Colour TV — 20 cartons (200 units)</div></div>
+  <div class="dfield"><div class="dflab">Gross weight</div><div class="dfval">520 kg</div></div>
+  <div class="dfield"><div class="dflab">CIF Value</div><div class="dfval">USD 14,522.25</div></div>
+  <div class="dfield"><div class="dflab">Dispatch date</div><div class="dfval">18 March 2026</div></div></div>`
+};
+
+// ── NAV / PAGE ─────────────────────────────────────────────────────────────
+function go(id){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('act'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('act'));
+  document.getElementById('pg-'+id)?.classList.add('act');
+  [...document.querySelectorAll('.nav-btn')].find(b=>b.textContent.toLowerCase().includes(id.slice(0,4)))?.classList.add('act');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function stool(id,btn){
+  document.querySelectorAll('.pcontent').forEach(c=>c.classList.remove('act'));
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('act'));
+  document.getElementById('tc-'+id)?.classList.add('act');
+  btn.classList.add('act');
+}
+
+// ── CALCULATOR ─────────────────────────────────────────────────────────────
+function uc(){
+  const o=document.getElementById('co')?.value||'KE';
+  const d=document.getElementById('cd')?.value||'UG';
+  const p=document.getElementById('cp')?.value||'electronics';
+  const v=parseFloat(document.getElementById('cv')?.value)||0;
+  const hasCoo=document.getElementById('cc')?.value==='yes';
+  const k=o+'-'+d;const dk=DD[k]?k:'default';const fk=FR[k]?k:'default';
+  const dt=DD[dk][p]||DD.default[p];
+  const fr=FR[fk];
+  const dr=hasCoo?dt.c:dt.s;
+  const duty=v*dr/100;
+  const vatBase=v+duty;
+  const vat=vatBase*dt.v/100;
+  const idl=v*dt.l/100;
+  const total=v+duty+vat+idl+fr;
+  const save=hasCoo&&dt.s>dt.c?(v*(dt.s-dt.c)/100):0;
+  const hint=!hasCoo&&dt.s>dt.c?(v*(dt.s-dt.c)/100):0;
+  const reg=CL[k]||CL.default;
+  const el=document.getElementById('calc-r');
+  if(!el)return;
+  el.innerHTML=`<div class="result-box">
+    <div class="rb-title">Landed Cost Breakdown</div>
+    <div class="rrow"><span>CIF Value (declared)</span><span class="rv">$${v.toLocaleString()}</span></div>
+    <div class="rrow"><span>Import duty (${dr}%)</span><span class="rv ${duty===0?'g':'r'}">$${duty.toFixed(2)}</span></div>
+    <div class="rrow"><span>VAT (${dt.v}% on CIF+duty)</span><span class="rv">$${vat.toFixed(2)}</span></div>
+    <div class="rrow"><span>Levy / IDF (${dt.l}%)</span><span class="rv">$${idl.toFixed(2)}</span></div>
+    <div class="rrow"><span>Estimated freight</span><span class="rv">$${fr.toLocaleString()}</span></div>
+    <div class="rrow total"><span>Total Landed Cost</span><span class="rv au">$${total.toFixed(2)}</span></div>
+    ${save>0?`<div class="save-chip">✅ EAC CoO saving: <strong>$${save.toFixed(2)}</strong> — ${dt.s}% duty waived</div>`:''}
+    ${hint>0?`<div class="hint-chip">💡 Get an EAC CoO to save <strong>$${hint.toFixed(2)}</strong> in import duty on this shipment</div>`:''}
+    <div class="regime-chip">Trade regime: ${reg}</div>
+  </div>`;
+}
+
+// ── CUSTOMS GUIDE ──────────────────────────────────────────────────────────
+function rg(key){
+  const c=CG[key];if(!c)return;
+  const el=document.getElementById('cg-content');if(!el)return;
+  let h=`<div style="background:var(--cream2);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 14px;margin-bottom:16px;font-size:13px">
+    <strong>${c.lbl}</strong><br><span style="color:var(--slate)">${c.treaty}</span></div>
+    <div class="guide-steps">`;
+  c.steps.forEach((s,i)=>{
+    h+=`<div class="gstep"><div class="gsnum-col"><div class="gsnum">${s.n}</div>${i<c.steps.length-1?'<div class="gsline"></div>':''}</div>
+    <div class="gscon"><div class="gstep-phase">${s.ph}</div><div class="gstep-title">${s.t}</div>
+    <div class="gstep-desc">${s.d}</div>
+    <div class="doc-chips">${s.docs.map(d=>`<span class="dchip">📄 ${d}</span>`).join('')}</div>
+    ${s.link?`<a class="glink" href="${s.link}" target="_blank">🔗 ${s.lt} ↗</a>`:''}
+    ${s.w?`<div class="galert">⚠️ ${s.w}</div>`:''}
+    ${s.ok?`<div class="gok">✅ ${s.ok}</div>`:''}
+    </div></div>`;
+  });
+  h+='</div>';el.innerHTML=h;
+}
+function sc(key,btn){
+  document.querySelectorAll('.cbt').forEach(b=>b.classList.remove('act'));
+  btn.classList.add('act');rg(key);
+}
+
+// ── PARTNERS ───────────────────────────────────────────────────────────────
+function rp(filter){
+  const el=document.getElementById('pg-partners');if(!el)return;
+  const list=filter==='all'?PARTNERS:PARTNERS.filter(p=>p.c.includes(filter));
+  el.innerHTML=list.map(p=>`<div class="pcard">
+    <div class="pcard-hd">
+      <div class="pav">${p.n.substring(0,2).toUpperCase()}</div>
+      <div style="flex:1"><div class="pname">${p.n}</div><div class="ptype">${p.t}</div></div>
+      ${p.v?'<div class="pvbadge">✓ Verified</div>':''}
+    </div>
+    <div class="ptags">${p.c.map(c=>`<span class="ptag">${c}</span>`).join('')}</div>
+    <div class="pmeta"><span>⭐ ${p.r}</span><span>📦 ${p.sh}</span><span>⚡ ${p.sp}</span></div>
+    <button class="prfq" onclick="showT('📧 RFQ sent to ${p.n}!')">Request Quote (RFQ)</button>
+  </div>`).join('');
+}
+function fp(f,btn){
+  document.querySelectorAll('.pfchip').forEach(c=>c.classList.remove('act'));
+  btn.classList.add('act');rp(f);
+}
+
+// ── NTB ────────────────────────────────────────────────────────────────────
+function rntb(){
+  const el=document.getElementById('ntb-l');if(!el)return;
+  el.innerHTML=NTBS.map(a=>`<div class="ntbcard">
+    <div class="ntbbar nb-${a.s}"></div>
+    <div class="ntbicon">${a.ic}</div>
+    <div class="ntbbody">
+      <div class="ntb-t">${a.t}</div>
+      <div class="ntb-d">${a.d}</div>
+      <div class="ntb-meta"><span class="ntbpill ${a.p}">${a.pt}</span><span>🛣️ ${a.r}</span><span>🕐 ${a.dt}</span></div>
+    </div>
+  </div>`).join('');
+}
+
+// ── DOC GEN ────────────────────────────────────────────────────────────────
+function rdg(){
+  const menu=document.getElementById('dg-menu');if(!menu)return;
+  menu.innerHTML=DOCS.map((d,i)=>`<div class="dgitem ${i===0?'act':''}" onclick="sdoc('${d.id}',this)">
+    <div class="dgitem-t">${d.t}</div><div class="dgitem-s">${d.s}</div></div>`).join('');
+  document.getElementById('dg-body').innerHTML=DOC_HTML.invoice;
+}
+function sdoc(id,el){
+  document.querySelectorAll('.dgitem').forEach(d=>d.classList.remove('act'));
+  el.classList.add('act');
+  const doc=DOCS.find(d=>d.id===id);
+  document.getElementById('dg-pt').textContent=doc.t;
+  document.getElementById('dg-body').innerHTML=DOC_HTML[id]||'<div class="dgdoc">Template coming soon.</div>';
+}
+
+// ── AI CHAT ────────────────────────────────────────────────────────────────
+let hist=[];
+async function sc2(){
+  const inp=document.getElementById('chat-in');
+  const txt=inp?.value.trim();if(!txt)return;
+  inp.value='';
+  document.getElementById('chat-sugg').style.display='none';
+  addMsg('u',txt);hist.push({role:'user',content:txt});
+  const sb=document.getElementById('chat-s');if(sb)sb.disabled=true;
+  const tid=addTyping();
+  try{
+    const res=await fetch('/api/chat',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',max_tokens:1000,
+        system:`You are the Tradepass AI Trade Assistant — an expert in African cross-border trade and China-Africa commerce. You specialise in:
+- Import duties, VAT, and taxes across all African markets
+- AfCFTA, EAC, COMESA, ECOWAS, SADC treaty benefits and rules of origin
+- Customs documentation (Certificates of Origin, IDF, Commercial Invoice, Packing Lists, Bill of Lading)
+- Logistics routes — Northern Corridor, Central Corridor, and all major African trade lanes
+- Non-tariff barriers and how to navigate them
+- China-Africa trade (China's zero-tariff policy effective Dec 2024 / May 2026; $295B trade in 2024)
+- Market opportunities, supply gaps, and priority sectors by country
+- The Tradepass platform tools (duty calculator, customs guide, partner directory, document generator)
+
+Always be specific, practical, and actionable. Give exact duty rates, HS codes, official portal links, and document names where relevant. Keep responses concise but complete. Use bullet points for lists.`,
+        messages:hist
+      })
+    });
+    const data=await res.json();
+    rmTyping(tid);
+    const reply=data.content?.map(c=>c.text||'').join('')||'I could not generate a response. Please try again.';
+    hist.push({role:'assistant',content:reply});
+    addMsg('a',reply);
+  }catch(e){
+    rmTyping(tid);
+    addMsg('a','I\'m having trouble connecting right now. Please check your connection and try again.');
+  }
+  if(sb)sb.disabled=false;
+}
+function addMsg(role,text){
+  const el=document.getElementById('chat-msgs');if(!el)return;
+  const d=document.createElement('div');d.className=`cmsg ${role}`;
+  const fmt=text.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>');
+  d.innerHTML=`<div class="cmsg-av">${role==='a'?'🌍':'👤'}</div><div class="cbub">${fmt}</div>`;
+  el.appendChild(d);el.scrollTop=el.scrollHeight;
+}
+function addTyping(){
+  const id='ty-'+Date.now();const el=document.getElementById('chat-msgs');if(!el)return id;
+  const d=document.createElement('div');d.className='cmsg a';d.id=id;
+  d.innerHTML=`<div class="cmsg-av">🌍</div><div class="cbub"><div class="tdots"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div></div>`;
+  el.appendChild(d);el.scrollTop=el.scrollHeight;return id;
+}
+function rmTyping(id){document.getElementById(id)?.remove();}
+function qs(btn){const inp=document.getElementById('chat-in');if(inp){inp.value=btn.textContent;sc2();}}
+
+// ── TOAST ──────────────────────────────────────────────────────────────────
+function showT(msg){
+  const t=document.getElementById('toast');if(!t)return;
+  t.textContent=msg;t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),3000);
+}
+
+// ── INIT ───────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  uc();rg('ke-ug');rp('all');rntb();rdg();
+});
+</script>
+</body>
+</html>
